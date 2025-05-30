@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using Microsoft.SemanticKernel;
 using LibGit2Sharp;
+using Microsoft.SemanticKernel;
 
 namespace ReleaseNotesChatbot;
 
@@ -45,7 +45,6 @@ public class GitPlugin
         [Description("The number of latest commits to retrieve.")]
         int count)
     {
-        var latestCommits = new List<Commit>();
         var stringifiedCommits = new List<string>();
 
         try

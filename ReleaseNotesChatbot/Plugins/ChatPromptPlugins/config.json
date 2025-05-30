@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "description": "Generates a summarized release notes based on the last commits of the branch",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 4096,
+      "temperature": 0.0,
+      "top_p": 0.0,
+      "presence_penalty": 0.0,
+      "frequency_penalty": 0.0
+    }
+  },
+  "input_variables": [
+    {
+      "name": "commits",
+      "description": "the commits to summarize",
+      "default": "",
+      "is_required": true
+    }
+  ]
+}
