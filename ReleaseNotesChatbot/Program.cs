@@ -16,8 +16,8 @@ var apiKey = configuration["ApiKey"] ?? throw new ApplicationException("ApiKey n
 var builder = Kernel.CreateBuilder()
     .AddAzureOpenAIChatCompletion(modelName, endpoint, apiKey);
 // Add the plugin to the kernel
-//var promptPlugins = Path.Combine(Directory.GetCurrentDirectory(), "Plugins", "ChatPromptPlugins") ?? throw new ApplicationException("PromptPlugins are missing");
-var promptPlugins = Path.Combine(AppContext.BaseDirectory, "../../../Plugins/ChatPromptPlugins");
+var promptPlugins = Path.Combine(Directory.GetCurrentDirectory(), "Plugins", "ChatPromptPlugins") ?? throw new ApplicationException("PromptPlugins are missing");
+//var promptPlugins = Path.Combine(AppContext.BaseDirectory, "../../../Plugins/ChatPromptPlugins");
 
 builder.Plugins.AddFromPromptDirectory(promptPlugins);
 

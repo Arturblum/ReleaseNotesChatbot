@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "description": "Generates a summarized release notes based on the last commits of the branch",
+  "description": "Generates a summarized release notes based on commits",
   "execution_settings": {
     "default": {
       "max_tokens": 4096,
