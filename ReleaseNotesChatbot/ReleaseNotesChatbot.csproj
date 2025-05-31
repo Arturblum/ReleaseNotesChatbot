@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="ConsoleDump" Version="0.7.0" />
       <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
@@ -16,6 +17,12 @@
 
     <ItemGroup>
       <None Update="appsettings.Development.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Plugins\ChatPromptPlugins\ReleaseNotes\config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Plugins\ChatPromptPlugins\ReleaseNotes\skprompt.txt">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
