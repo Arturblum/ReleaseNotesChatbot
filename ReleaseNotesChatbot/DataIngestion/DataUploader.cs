@@ -11,17 +11,29 @@ public class DataUploader(IVectorStore vectorStore, ITextEmbeddingGenerationServ
 {
     public async Task UploadToVectorStore(string collectionName, IEnumerable<RepoChunk> textChunk)
     {
-        var collection = vectorStore.GetCollection<string, RepoChunk>(collectionName);
-        await collection.CreateCollectionIfNotExistsAsync();
-
-        foreach (var chunk in textChunk)
+        try
         {
-            Console.WriteLine($"Generating embedding for file: {chunk.DocumentName}");
-            chunk.TextEmbedding = await textEmbeddingGenerator.GenerateEmbeddingAsync(chunk.Text);
+            var collection = vectorStore.GetCollection<string, RepoChunk>(collectionName);
+            await collection.CreateCollectionIfNotExistsAsync();
 
-            Console.WriteLine($"Upserting chink to vector store: {chunk.Key}");
-            await collection.UpsertAsync(chunk);
+            foreach (var chunk in textChunk)
+            {
+
+                //chunk.Text = chunk.Text.Length > 1000 ? chunk.Text.Substring(0, 1000) : chunk.Text;
+            
+                Console.WriteLine($"Generating embedding for file: {chunk.DocumentName}");
+                chunk.TextEmbedding = await textEmbeddingGenerator.GenerateEmbeddingAsync(chunk.Text);
+
+                Console.WriteLine($"Upserting chunk to vector store: {chunk.Key}");
+                await collection.UpsertAsync(chunk);
+            }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
     }
 }
 

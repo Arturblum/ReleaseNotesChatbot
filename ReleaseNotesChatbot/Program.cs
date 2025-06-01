@@ -30,7 +30,7 @@ var builder = Kernel.CreateBuilder()
 var kernel = builder.Build();
 
 var repoChunks = new List<RepoChunk>();
-var filesContent = GitHelper.GetAllCodeFromLatestCommit("");
+var filesContent = GitHelper.GetAllCodeFromLatestCommit("/Users/arthurblumberg/Downloads/blender-mcp");
 
 foreach (var file in filesContent)
 {
@@ -46,12 +46,11 @@ foreach (var file in filesContent)
 var vectorStore = kernel.GetRequiredService<IVectorStore>();
 var textEmbeddingGenerator = kernel.GetRequiredService<ITextEmbeddingGenerationService>();
 
-foreach (var file in filesContent)
-{
+
     var dataUploader = new DataUploader(vectorStore, textEmbeddingGenerator);
     //todo:the repo chunks is not correct, here need to finish this 
     await dataUploader.UploadToVectorStore("codeBase", repoChunks);
-}
+
 
 var collection = vectorStore.GetCollection<string, RepoChunk>("codeBase");
 
