@@ -49,17 +49,18 @@ var textEmbeddingGenerator = kernel.GetRequiredService<ITextEmbeddingGenerationS
 foreach (var file in filesContent)
 {
     var dataUploader = new DataUploader(vectorStore, textEmbeddingGenerator);
-    await dataUploader.UploadToVectorStore("loveStory", repoChunks);//todo:replace "loveStory" 
+    //todo:the repo chunks is not correct, here need to finish this 
+    await dataUploader.UploadToVectorStore("codeBase", repoChunks);
 }
 
-var collection = vectorStore.GetCollection<string, RepoChunk>("loveStory");//todo:replace "loveStory" with a more descriptive name if needed
+var collection = vectorStore.GetCollection<string, RepoChunk>("codeBase");
 
 var stringMapper = new TextChunkTextSearchStringMapper();
 var resultMapper = new TextChunkTextSearchResultMapper();
 // todo: update not to use obsolete way
 var textSearch = new VectorStoreTextSearch<RepoChunk>(collection, textEmbeddingGenerator, stringMapper, resultMapper);
 
-var searchPlugin = textSearch.CreateWithGetSearchResults("LoveStorySearchPlugin");//todo: replace "LoveStorySearchPlugin" with a more descriptive name if needed
+var searchPlugin = textSearch.CreateWithGetSearchResults("CodeBaseSearchPlugin");
 kernel.Plugins.Add(searchPlugin);
 
 var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
@@ -72,9 +73,8 @@ AzureOpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
 var history = new ChatHistory();
 
 history.AddSystemMessage("You are a RAG‐enabled assistant. For every query:\n" +
-                         "1. Always invoke the “LoveStorySearchPlugin” to retrieve relevant text chunks.\n" +
+                         "1. Always invoke the “CodeBaseSearchPlugin” to retrieve relevant text chunks.\n" +
                          "2. Base your answer on those chunks whenever possible.\n" +
-                         "3. Cite each fact with its source in the form (DocumentName, paragraph #).\n" +
                          "Keep answers concise and grounded in the retrieved material.");
 
 do
